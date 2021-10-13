@@ -60,8 +60,9 @@ class ProductDetail extends React.Component<{}, ProductState> {
                 }
 
                 console.log("Sizes: " + sizes);
+                console.log("Color:" + colors);
 
-                this.setState({ product, helper, colors, sizes });
+                this.setState({ product, helper, colors, selectedColor: colors[0], sizes });
             }).catch(error => {
                 console.log(error);
             });
