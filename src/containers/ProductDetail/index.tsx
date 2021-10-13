@@ -38,7 +38,7 @@ class ProductDetail extends React.Component<{}, ProductState> {
      */
     render() {
         return (
-            <ProductInfo product={this.state.product} colors={this.state.colors} sizes={this.state.sizes} selectedColor={this.state.selectedColor} changedColor={this.changedColor} changedSize={this.changedSize} />
+            <ProductInfo product={this.state.product} colors={this.state.colors} sizes={this.state.sizes} selectedColor={this.state.selectedColor} selectedSize={this.state.selectedSize} changedColor={this.changedColor} changedSize={this.changedSize} addToCart={this.addToCart} />
         )
     }
 
@@ -61,8 +61,10 @@ class ProductDetail extends React.Component<{}, ProductState> {
 
                 console.log("Sizes: " + sizes);
                 console.log("Color:" + colors);
-
-                this.setState({ product, helper, colors, selectedColor: colors[0], sizes });
+                let selectedColor = colors[0];
+                let selectedSize = sizes[0];
+                let sku = helper.getSku(selectedColor, selectedSize)
+                this.setState({ product, helper, colors, selectedColor, sizes, selectedSize, sku });
             }).catch(error => {
                 console.log(error);
             });
@@ -103,6 +105,10 @@ class ProductDetail extends React.Component<{}, ProductState> {
             sku: selecetedSku
         })
 
+        console.log(this.state.sku);
+    }
+
+    addToCart = (event: any) => {
         console.log(this.state.sku);
     }
 }

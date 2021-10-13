@@ -1,6 +1,7 @@
 import "./index.css";
 import Product from "../../types/Product";
 import Comment from "../../types/Comment";
+import Sku from "../../types/Sku";
 import {
   Grid,
   Paper,
@@ -21,8 +22,10 @@ interface ProductInfoProps {
   colors: string[];
   sizes: string[];
   selectedColor: string;
-  changedColor(event: any): void,
-  changedSize(event: any): void
+  selectedSize: string;
+  changedColor(event: any): void;
+  changedSize(event: any): void;
+  addToCart(event: any): void;
 }
 
 /**
@@ -48,11 +51,9 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
     colors.push(<option value={color}>{color}</option>);
   });
 
-  var selectedSize = "";
   if (props.product !== undefined && props.product.childSkus !== undefined) {
-    selectedSize = props.sizes[0];
     props.sizes.forEach((size) => {
-      sizes.push(<MenuItem value={size}>{size}</MenuItem>);
+      sizes.push(<option value={size}>{size}</option>);
     });
 
     props.product.comments.forEach((comment: Comment) => {
@@ -81,8 +82,6 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
   if (props.product !== undefined && props.product.childSkus !== undefined && props.product.childSkus[0] !== undefined) {
     largeImageUrl = props.product.childSkus[0].largeImageUrl;
   }
-
-  console.log(props.sizes);
 
   return (
     <div className="productInfo">
@@ -123,7 +122,7 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
             <InputLabel className="productLabel" id="size-label">
               Size
             </InputLabel>
-            <Select labelId="size-label" id="size-select" label="Size" value={selectedSize} onChange={props.changedSize}>
+            <Select labelId="size-label" id="size-select" label="Size" value={props.selectedSize} onChange={props.changedSize}>
               {sizes}
             </Select>
           </Grid>
@@ -143,7 +142,7 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
           <Grid item lg={10} />
 
           <Grid item lg={4}>
-            <Button className="cartButton" variant="contained">
+            <Button className="cartButton" variant="contained" onClick={props.addToCart}>
               Add to Cart
             </Button>
           </Grid>
