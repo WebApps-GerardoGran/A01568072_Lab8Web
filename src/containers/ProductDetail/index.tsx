@@ -74,8 +74,12 @@ class ProductDetail extends React.Component<{}, ProductState> {
 
         console.log("selectedColor: " + value);
 
+        const helper = new ProductHelper(this.state.product);
+        let newSizes = helper.getSizes(value);
+
         this.setState({
-            selectedColor: value
+            selectedColor: value,
+            sizes: newSizes
         })
     }
 }
