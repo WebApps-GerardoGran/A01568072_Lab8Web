@@ -122,7 +122,7 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
             <InputLabel className="productLabel" id="size-label">
               Size
             </InputLabel>
-            <Select labelId="size-label" id="size-select" label="Size" value={props.selectedSize} onChange={props.changedSize}>
+            <Select labelId="size-label" id="size-select" native={true} label="Size" value={props.selectedSize} onChange={props.changedSize}>
               {sizes}
             </Select>
           </Grid>
