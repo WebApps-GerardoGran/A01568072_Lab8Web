@@ -38,7 +38,7 @@ class ProductDetail extends React.Component<{}, ProductState> {
      */
     render() {
         return (
-            <ProductInfo product={this.state.product} colors={this.state.colors} sizes={this.state.sizes} selectedColor={this.state.selectedColor} changedColor={this.changedColor} />
+            <ProductInfo product={this.state.product} colors={this.state.colors} sizes={this.state.sizes} selectedColor={this.state.selectedColor} changedColor={this.changedColor} changedSize={this.changedSize} />
         )
     }
 
@@ -77,10 +77,33 @@ class ProductDetail extends React.Component<{}, ProductState> {
         const helper = new ProductHelper(this.state.product);
         let newSizes = helper.getSizes(value);
 
+        let selecetedSku = helper.getSku(value, newSizes[0]);
+
         this.setState({
             selectedColor: value,
-            sizes: newSizes
+            sizes: newSizes,
+            sku: selecetedSku
         })
+
+        console.log(this.state.sku);
+    }
+
+    changedSize = (event: any) => {
+        let target = event.currentTarget as HTMLSelectElement;
+        let value = target.value;
+
+        console.log("selectedSize: " + value);
+
+        const helper = new ProductHelper(this.state.product);
+
+        let selecetedSku = helper.getSku(this.state.selectedColor, value);
+
+        this.setState({
+            selectedSize: value,
+            sku: selecetedSku
+        })
+
+        console.log(this.state.sku);
     }
 }
 

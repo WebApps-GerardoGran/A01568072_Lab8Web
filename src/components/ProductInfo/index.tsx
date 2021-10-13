@@ -21,7 +21,8 @@ interface ProductInfoProps {
   colors: string[];
   sizes: string[];
   selectedColor: string;
-  changedColor(event: any): void
+  changedColor(event: any): void,
+  changedSize(event: any): void
 }
 
 /**
@@ -122,7 +123,7 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
             <InputLabel className="productLabel" id="size-label">
               Size
             </InputLabel>
-            <Select labelId="size-label" id="size-select" label="Size" value={selectedSize}>
+            <Select labelId="size-label" id="size-select" label="Size" value={selectedSize} onChange={props.changedSize}>
               {sizes}
             </Select>
           </Grid>
