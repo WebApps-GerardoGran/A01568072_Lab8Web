@@ -40,7 +40,7 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
   }
 
   var colors: any[] = [];
-  // var sizes: any[] = [];
+  var sizes: any[] = [];
   var comments: any[] = [];
 
   props.colors.forEach((color: string) => {
@@ -49,10 +49,10 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
 
   var selectedSize = "";
   if (props.product !== undefined && props.product.childSkus !== undefined) {
-    selectedSize = props.product.childSkus[0].size;
-    // props.product.childSkus.forEach((sku) => {
-    //   sizes.push(<MenuItem value={sku.size}>{sku.size}</MenuItem>);
-    // });
+    selectedSize = props.sizes[0];
+    props.sizes.forEach((size) => {
+      sizes.push(<MenuItem value={size}>{size}</MenuItem>);
+    });
 
     props.product.comments.forEach((comment: Comment) => {
       comments.push(
@@ -80,6 +80,8 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
   if (props.product !== undefined && props.product.childSkus !== undefined && props.product.childSkus[0] !== undefined) {
     largeImageUrl = props.product.childSkus[0].largeImageUrl;
   }
+
+  console.log(props.sizes);
 
   return (
     <div className="productInfo">
@@ -121,7 +123,7 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
               Size
             </InputLabel>
             <Select labelId="size-label" id="size-select" label="Size" value={selectedSize}>
-              {props.sizes}
+              {sizes}
             </Select>
           </Grid>
           <Grid item lg={8} />
